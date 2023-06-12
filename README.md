@@ -1,10 +1,10 @@
 # Is it a bird?
 
-Build a machine learning model to classify pictures as bird or not bird (following tutorial from fastai) and expose through it via an API.
+This project is about building a machine learning model to classify pictures as bird or not-bird following the [fastai tutorial](https://youtu.be/8SF_h3xF3cE) and wrapping the model in an API. This project uses [PDM](https://pdm.fming.dev/latest/). 
 
 ## How to run the API
 
-This uses [PDM](https://pdm.fming.dev/latest/). Clone this directory and: 
+Clone this directory and: 
 
 ```bash
 # this installs all the packages in pdm.lock
