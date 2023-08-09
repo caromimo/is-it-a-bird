@@ -24,7 +24,7 @@ function App() {
 
 			<form>
 				<p>Upload a picture of a bird or a forest</p>
-				<p>Our very advanced Machine Learning model will tell you what it is</p>
+				<p>Our very advanced Machine Learning model will tell you if it is a bird or a forest</p>
 				<div>
 					<label for="file">Choose file to upload</label>
 					<input type="file" id="file" name="file" accept="image/png, image/jpeg" />
