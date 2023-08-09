@@ -28,5 +28,5 @@ dls = DataBlock(
 learn = vision_learner(dls, resnet18, metrics=error_rate)
 learn.fine_tune(3)
 
-# save the model as a pkl file
+# export the model as a pkl file
 learn.export(fname="model.pkl")
