@@ -1,4 +1,4 @@
-# training the model on our data
+# using the model on our data
 
 # import libraries
 from fastai.vision.all import (
