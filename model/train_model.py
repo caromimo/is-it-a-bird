@@ -15,7 +15,7 @@ from fastai.vision.all import (
     error_rate,
 )
 
-path = Path("bird_or_not")
+path = Path("pictures")
 
 dls = DataBlock(
     blocks=(ImageBlock, CategoryBlock),

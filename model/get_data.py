@@ -18,7 +18,7 @@ def search_images(term, max_images=30):
 
 
 searches = "forest", "bird"
-path = Path("bird_or_not")
+path = Path("pictures")
 
 for term in searches:
     dest = path / term

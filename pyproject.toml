@@ -22,8 +22,8 @@ requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
 
 [tool.pdm.scripts]
-data = "python get_data.py"
-train = "python train_model.py"
-classify = "python use_model.py"
+data = "python model/get_data.py"
+train = "python model/train_model.py"
+classify = "python model/use_model.py"
 repl = "python"
-start = "uvicorn api:app --host=0.0.0.0 --reload"
+start = "uvicorn main:app --host=0.0.0.0 --reload"

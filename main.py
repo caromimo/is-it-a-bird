@@ -6,21 +6,13 @@ from fastai.vision.all import *
 import io
 
 
-from fastapi.middleware.cors import CORSMiddleware
+learn = load_learner("model/model.pkl")
 
-learn = load_learner("model.pkl")
-
-app = FastAPI()
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-)
+app = FastAPI(title="app")
+api = FastAPI(title="api")
 
 
-@app.post("/")
+@api.post("/")
 async def create_upload_file(file: UploadFile):
     print(f"looking good {file.filename} and {file.size}")
     request_object_content = await file.read()
@@ -31,7 +23,5 @@ async def create_upload_file(file: UploadFile):
     return {"probability": probs.tolist()[0], "answer": is_bird}
 
 
-@app.get("/")
-async def root():
-    is_bird, _, probs = learn.predict(PILImage.create("forest.jpg"))
-    return {"probability": probs.tolist()[0], "answer": is_bird}
+app.mount("/classify", api)
+app.mount("/", StaticFiles(directory="ui", html=True), name="ui")
