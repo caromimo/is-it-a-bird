@@ -4,38 +4,44 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
-	const [count, setCount] = useState(0);
-	const [data, setData] = useState(null);
+	const [file, setFile] = useState();
 
-	useEffect(() => {
-		fetch(`http://localhost:8000`)
-			.then((response) => {
-				return response.json()
-			})
-			.then((actualData) => {
-				console.log({ data: actualData })
-				setData(actualData);
-			})
-	}, []);
+	const handleFileChange = (e) => {
+		if (e.target.files) {
+			setFile(e.target.files[0]);
+		}
+	};
+
+	const handleUploadClick = () => {
+		if (!file) {
+			return;
+		}
+		let formData = new FormData();
+
+		formData.append("file", file, file.name);
+		// 👇 Uploading the file using the fetch API to the server
+		fetch('http://localhost:8000/', {
+			method: 'POST',
+			body: formData,
+			// 👇 Set headers manually for single file upload
+			headers: {
+				// If you pass the content type it breaks!
+				// 	'content-type': "multipart/form-data",
+				'content-length': `${file.size}`, // 👈 Headers need to be a string
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => console.log(data))
+			.catch((err) => console.error(err));
+	};
 
 	return (
-		<div className="App">
-			<h1>Bird or Forest?</h1>
+		<div>
+			<input type="file" onChange={handleFileChange} />
 
-			<form>
-				<p>Upload a picture of a bird or a forest</p>
-				<p>Our very advanced Machine Learning model will tell you if it is a bird or a forest</p>
-				<div>
-					<label for="file">Choose file to upload</label>
-					<input type="file" id="file" name="file" accept="image/png, image/jpeg" />
-				</div>
-			</form>
+			<div>{file && `${file.name} - ${file.type}`}</div>
 
-			<div class="departures">
-				<p><em style={{ fontWeight: "bold" }}>Probability that it is a bird: </em>{data && data.probability}</p>
-				<p><em style={{ fontWeight: "bold" }}>It is a </em>{data && data.answer} !</p>
-			</div>
-
+			<button onClick={handleUploadClick}>Upload</button>
 		</div>
 	);
 }
